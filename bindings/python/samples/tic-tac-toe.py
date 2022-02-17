@@ -35,11 +35,11 @@ def initialize():   # initializes tic tac toe grid
     image = Image.new("RGB", (32,32))
     draw = ImageDraw.Draw(image)
     
-    draw.line((10,0,10,31), fill=(255,255,255))
-    draw.line((21,0,21,31), fill=(255,255,255))
+    draw.line((10,0,10,31), fill=(100,100,100))
+    draw.line((21,0,21,31), fill=(100,100,100))
 
-    draw.line((0,10,31,10), fill=(255,255,255))
-    draw.line((0,21,31,21), fill=(255,255,255))
+    draw.line((0,10,31,10), fill=(100,100,100))
+    draw.line((0,21,31,21), fill=(100,100,100))
 
     matrix.Clear()
     matrix.SetImage(image)
