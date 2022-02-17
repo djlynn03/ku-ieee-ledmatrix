@@ -48,9 +48,11 @@ def initialize():   # initializes tic tac toe grid
 
 try:
     print("Press CTRL-C to stop.")
+    initialize()
     while True:
-        initialize()
-        # movement = input()
+        movement = input()
+        if movement:
+            print(movement)
         # if movement == 'a':
             
 except KeyboardInterrupt:
