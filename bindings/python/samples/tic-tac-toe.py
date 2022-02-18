@@ -56,7 +56,7 @@ def pointer_up():
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords, fill=(255,0,0))
-    matrix.setImage(image)
+    matrix.SetImage(image)
 
 def pointer_left():
     if current_pos[0] != 0:
@@ -68,7 +68,7 @@ def pointer_left():
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords, fill=(255,0,0))
-    matrix.setImage(image)
+    matrix.SetImage(image)
     input()
 def pointer_right():
     if current_pos[0] != 2:
@@ -80,7 +80,7 @@ def pointer_right():
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords, fill=(255,0,0))
-    matrix.setImage(image)
+    matrix.SetImage(image)
     
 def pointer_down():
     if current_pos[1] != 2:
@@ -92,12 +92,12 @@ def pointer_down():
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords, fill=(255,0,0))
-    matrix.setImage(image)
+    matrix.SetImage(image)
 # Configuration for the matrix
 
 try:
     print("Press CTRL-C to stop.")
-    matrix.setImage(get_board())
+    matrix.SetImage(get_board())
     while True:
         key = repr(readchar.readkey())
         if key == '\x1b[A':
