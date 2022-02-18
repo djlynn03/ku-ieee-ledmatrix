@@ -4,7 +4,7 @@ import time
 import sys
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
-import select
+import readchar
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -97,19 +97,16 @@ def pointer_down():
 
 try:
     print("Press CTRL-C to stop.")
+    matrix.setImage(get_board())
     while True:
-        i, o, e = select.select([sys.stdin], [], [], 0.0001)
-        if i:
-            print(i)
-    with keyboard.Events() as events:
-        event = events.get(1e6)
-        if event.key == keyboard.Key.up:
+        key = repr(readchar.readkey())
+        if key == '\x1b[A':
             pointer_up()
-        elif event.key == keyboard.Key.down:
+        elif key == '\x1b[B':
             pointer_down(0)
-        elif event.key == keyboard.Key.left:
+        elif key == '\x1b[C':
             pointer_left(0)
-        elif event.key == keyboard.Key.right:
+        elif key == '\x1b[D':
             pointer_right(0)
     # turtle.listen()
     # turtle.onkey(pointer_up, "Up")
