@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-from mimetypes import init
+from multiprocessing.dummy import current_process
 import time
 import sys
+import turtle
 
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
@@ -31,7 +32,12 @@ matrix = RGBMatrix(options = options)
     
 #     matrix.SetImage(image.convert('RGB'))
 
-def initialize():   # initializes tic tac toe grid
+current_pos = (0, 0)
+
+def get_coords(length, width):
+    return ((current_pos[0] * 10) + 5, (current_pos[1] * 10) + 5, (current_pos[0] * 10) + 5 + length, (current_pos[1] * 10) + 5 + width)
+
+def get_board():   # initializes tic tac toe grid
     image = Image.new("RGB", (32,32))
     draw = ImageDraw.Draw(image)
     
@@ -41,19 +47,71 @@ def initialize():   # initializes tic tac toe grid
     draw.line((0,10,31,10), fill=(100,100,100))
     draw.line((0,21,31,21), fill=(100,100,100))
 
-    matrix.Clear()
-    matrix.SetImage(image)
+    return image
 
+def pointer_up():
+    if current_pos[1] != 0:
+        current_pos = (current_pos[0], current_pos[1] - 1)
+    else:
+        return
+    
+    image = get_board()
+    draw = ImageDraw.Draw(image)
+    
+    draw.rectangle(get_coords, fill=(255,0,0))
+    matrix.setImage(image)
+
+def pointer_left():
+    if current_pos[0] != 0:
+        current_pos = (current_pos[0] - 1, current_pos[1])
+    else:
+        return
+    
+    image = get_board()
+    draw = ImageDraw.Draw(image)
+    
+    draw.rectangle(get_coords, fill=(255,0,0))
+    matrix.setImage(image)
+    
+def pointer_right():
+    if current_pos[0] != 2:
+        current_pos = (current_pos[0] + 1, current_pos[1])
+    else:
+        return
+    
+    image = get_board()
+    draw = ImageDraw.Draw(image)
+    
+    draw.rectangle(get_coords, fill=(255,0,0))
+    matrix.setImage(image)
+    
+def pointer_down():
+    if current_pos[1] != 2:
+        current_pos = (current_pos[0], current_pos[1] + 1)
+    else:
+        return
+    
+    image = get_board()
+    draw = ImageDraw.Draw(image)
+    
+    draw.rectangle(get_coords, fill=(255,0,0))
+    matrix.setImage(image)
 # Configuration for the matrix
 
 try:
     print("Press CTRL-C to stop.")
-    initialize()
-    while True:
-        movement = input()
-        if movement:
-            print(movement)
-        # if movement == 'a':
+    turtle.listen()
+    turtle.onkey(pointer_up, "Up")
+    turtle.onkey(pointer_left, "Left")
+    turtle.onkey(pointer_right, "Right")
+    turtle.onkey(pointer_down, "Down")
+
+    # while True:
+    #     movement = input()
+    #     # turtle.
+    #     if movement:
+    #         print(movement)
+    #     # if movement == 'a':
             
 except KeyboardInterrupt:
     sys.exit(0)
