@@ -1,14 +1,12 @@
 #!/usr/bin/env python
+from operator import ilshift
 import time
 import sys
-from pynput import keyboard
-
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
-
+import select
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
-6
 # else:
 #     image_file = sys.argv[1]
 
@@ -71,7 +69,7 @@ def pointer_left():
     
     draw.rectangle(get_coords, fill=(255,0,0))
     matrix.setImage(image)
-    
+    input()
 def pointer_right():
     if current_pos[0] != 2:
         current_pos = (current_pos[0] + 1, current_pos[1])
@@ -99,6 +97,10 @@ def pointer_down():
 
 try:
     print("Press CTRL-C to stop.")
+    while True:
+        i, o, e = select.select([sys.stdin], [], [], 0.0001)
+        if i:
+            print(i)
     with keyboard.Events() as events:
         event = events.get(1e6)
         if event.key == keyboard.Key.up:
