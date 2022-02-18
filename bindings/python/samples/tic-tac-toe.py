@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-from multiprocessing.dummy import current_process
 import time
 import sys
-import turtle
+from pynput import keyboard
 
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
@@ -20,12 +19,6 @@ options.parallel = 1
 options.hardware_mapping = 'adafruit-hat'  # If you have an Adafruit HAT: 'adafruit-hat'
 
 matrix = RGBMatrix(options = options)
-
-wn = turtle.Screen()
-wn.bgcolor = "black"
-wn.title("Tic Tac Toe")
-
-pointer = turtle.Turtle()
 
 # def cycle_image(index):
 #     image_file = image_names[index]
@@ -106,11 +99,21 @@ def pointer_down():
 
 try:
     print("Press CTRL-C to stop.")
-    turtle.listen()
-    turtle.onkey(pointer_up, "Up")
-    turtle.onkey(pointer_left, "Left")
-    turtle.onkey(pointer_right, "Right")
-    turtle.onkey(pointer_down, "Down")
+    with keyboard.Events() as events:
+        event = events.get(1e6)
+        if event.key == keyboard.Key.up:
+            pointer_up()
+        elif event.key == keyboard.Key.down:
+            pointer_down(0)
+        elif event.key == keyboard.Key.left:
+            pointer_left(0)
+        elif event.key == keyboard.Key.right:
+            pointer_right(0)
+    # turtle.listen()
+    # turtle.onkey(pointer_up, "Up")
+    # turtle.onkey(pointer_left, "Left")
+    # turtle.onkey(pointer_right, "Right")
+    # turtle.onkey(pointer_down, "Down")
 
     # while True:
     #     movement = input()
