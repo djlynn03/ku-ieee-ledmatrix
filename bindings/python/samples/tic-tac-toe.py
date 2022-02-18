@@ -21,6 +21,12 @@ options.hardware_mapping = 'adafruit-hat'  # If you have an Adafruit HAT: 'adafr
 
 matrix = RGBMatrix(options = options)
 
+wn = turtle.Screen()
+wn.bgcolor = "black"
+wn.title("Tic Tac Toe")
+
+pointer = turtle.Turtle()
+
 # def cycle_image(index):
 #     image_file = image_names[index]
 #     image = Image.open(image_file)
