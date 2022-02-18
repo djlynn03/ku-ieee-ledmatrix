@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from operator import ilshift
+from signal import raise_signal
 import time
 import sys
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
@@ -104,10 +105,13 @@ try:
             pointer_up()
         elif key == '\x1b[B':
             pointer_down(0)
-        elif key == '\x1b[C':
-            pointer_left(0)
         elif key == '\x1b[D':
+            pointer_left(0)
+        elif key == '\x1b[C':
             pointer_right(0)
+        else:
+            break
+    sys.exit(0)
     # turtle.listen()
     # turtle.onkey(pointer_up, "Up")
     # turtle.onkey(pointer_left, "Left")
