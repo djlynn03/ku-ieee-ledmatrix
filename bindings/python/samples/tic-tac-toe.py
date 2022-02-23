@@ -116,26 +116,35 @@ def pointer_init(current_pos):
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
 
-def place_marker(current_pos, marker, base_image):
-    draw = ImageDraw.Draw(base_image)
+def refresh_image(image, board_state):
+    temp = get_board()
+    draw = ImageDraw.Draw(temp)
+    for i in range(3):
+        for j in range(3):
+            if board_state[i][j] == "O":
+                    draw.ellipse(get_circle((i,j)), outline="gray")
+                    
+            elif board_state[i][j] == "X":
+                draw.line(get_line1((i,j)), fill="gray")
+                draw.line(get_line2((i,j)), fill="gray")
+
+    matrix.SetImage(temp)
+
+def place_marker(current_pos, marker, board_state):
+    board_state[current_pos[0]][current_pos[1]] = marker
+    print(board_state)
+    refresh_image(image, board_state)
+    # draw = ImageDraw.Draw(base_image)
+      
+    # matrix.SetImage(base_image)
     
-    if marker == "O":
-        draw.ellipse(get_circle(current_pos), outline="gray")
-        marker = "X"
-        
-    elif marker == "X":
-        draw.line(get_line1(current_pos), fill="gray")
-        draw.line(get_line2(current_pos), fill="gray")
-        marker = "O"
-        
-    matrix.SetImage(base_image)
-    
-    return marker, base_image
+    # return marker, base_image
 
 try:
     print("type 'q' to quit")
     image = get_board()
     base_image = get_board()
+    board_state = [["","",""],["","",""],["","",""]]
     matrix.SetImage(image)
     current_pos = (0,0)
     pointer_init(current_pos)
@@ -156,7 +165,7 @@ try:
             current_pos = pointer_right(current_pos, image)
         
         elif k == " ":
-            marker,image = place_marker(current_pos, marker, base_image)
+            place_marker(current_pos, marker, board_state)
         
         if k:
             print(current_pos)
