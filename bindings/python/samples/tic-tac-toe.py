@@ -56,24 +56,23 @@ def get_board():   # initializes tic tac toe grid
 
     return image
 
-def pointer_up(current_pos):
+def pointer_up(current_pos, image):
     if current_pos[1] == 0:
         return current_pos
     current_pos = (current_pos[0], current_pos[1] - 1)
     
-    image = get_board()
+    # image = get_board()
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
     return current_pos
 
-def pointer_left(current_pos):
+def pointer_left(current_pos, image):
     if current_pos[0] == 0:
         return current_pos
     current_pos = (current_pos[0] - 1, current_pos[1])
     
-    image = get_board()
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
@@ -81,13 +80,13 @@ def pointer_left(current_pos):
     return current_pos
 
     
-def pointer_right(current_pos):
+def pointer_right(current_pos, image):
     if current_pos[0] == 2:
         return current_pos
     current_pos = (current_pos[0] + 1, current_pos[1])
 
     
-    image = get_board()
+    # image = get_board()
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
@@ -95,14 +94,14 @@ def pointer_right(current_pos):
     return current_pos
 
     
-def pointer_down(current_pos):
+def pointer_down(current_pos, image):
     if current_pos[1] == 2:
         return current_pos
     current_pos = (current_pos[0], current_pos[1] + 1)
     # else:
     #     return 
     
-    image = get_board()
+    # image = get_board()
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
@@ -117,9 +116,9 @@ def pointer_init(current_pos):
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
 
-def place_marker(current_pos, marker):
-    image = get_board()
+def place_marker(current_pos, marker, image):
     draw = ImageDraw.Draw(image)
+    
     if marker == "O":
         draw.ellipse(get_circle(current_pos), outline="white")
         marker = "X"
@@ -131,11 +130,12 @@ def place_marker(current_pos, marker):
         
     matrix.SetImage(image)
     
-    return marker
+    return marker, image
 
 try:
     print("type 'q' to quit")
-    matrix.SetImage(get_board())
+    image = get_board()
+    matrix.SetImage(image)
     current_pos = (0,0)
     pointer_init(current_pos)
     marker = "X"
@@ -146,16 +146,16 @@ try:
         print(k, k == "q", k ==" ")
         
         if k == "w":
-            current_pos = pointer_up(current_pos)
+            current_pos = pointer_up(current_pos, image)
         elif k == 's':
-            current_pos = pointer_down(current_pos)
+            current_pos = pointer_down(current_pos, image)
         elif k == 'a':
-            current_pos = pointer_left(current_pos)
+            current_pos = pointer_left(current_pos, image)
         elif k == 'd':
-            current_pos = pointer_right(current_pos)
+            current_pos = pointer_right(current_pos, image)
         
         elif k == " ":
-            marker = place_marker(current_pos, marker)
+            marker,image = place_marker(current_pos, marker, image)
         
         if k:
             print(current_pos)
