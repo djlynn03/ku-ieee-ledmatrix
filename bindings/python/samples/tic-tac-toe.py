@@ -101,6 +101,8 @@ try:
     matrix.SetImage(get_board())
     while True:
         k = readkey()
+        if k == 'a':
+            break
         print(k, k == key.BACKSPACE)
         # if key == '\x1b[A':
         #     pointer_up()
