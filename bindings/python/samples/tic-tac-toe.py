@@ -141,7 +141,7 @@ def pointer_init(current_pos):
 def place_marker(current_pos, marker, board_state):
     board_state[current_pos[0]][current_pos[1]] = marker
     print(board_state)
-    refresh_image(image, board_state)
+    refresh_image(board_state)
     # draw = ImageDraw.Draw(base_image)
       
     # matrix.SetImage(base_image)
