@@ -101,7 +101,7 @@ def pointer_init():
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(2,2), fill=(255,0,0))
-    matrix.Set_Image(image)
+    matrix.SetImage(image)
     
 try:
     print("type 'q' to quit")
