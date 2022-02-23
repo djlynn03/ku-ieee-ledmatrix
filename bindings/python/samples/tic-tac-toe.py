@@ -150,6 +150,29 @@ def place_marker(current_pos, marker, board_state):
     # matrix.SetImage(base_image)
     
     # return marker, base_image
+def game_over(board_state):
+    for i in range(3):
+        for j in range(3):
+            if board_state[i][j] == board_state[i+1][j+1] == board_state[i+2][j+2] != "":
+                image = refresh_image(board_state)
+                draw = ImageDraw.Draw(image)
+                draw.line(get_line1((i,j)), fill="red")
+                return True
+            elif board_state[i][j] == board_state[i+1][j-1] == board_state[i+2][j-2] != "":
+                image = refresh_image(board_state)
+                draw = ImageDraw.Draw(image)
+                draw.line(get_line2((i,j)), fill="red")
+                return True
+            elif board_state[i][j] == board_state[i][j+1] == board_state[i][j+2] != "":
+                image = refresh_image(board_state)
+                draw = ImageDraw.Draw(image)
+                draw.line(get_line1((i,j)), fill="red")
+                return True
+            elif board_state[i][j] == board_state[i+1][j] == board_state[i+2][j] != "":
+                image = refresh_image(board_state)
+                draw = ImageDraw.Draw(image)
+                draw.line(get_line1((i,j)), fill="red")
+                return True
 
 try:
     print("type 'q' to quit, 'c' to clear")
@@ -192,7 +215,9 @@ try:
             marker = "X"
             
         if k:
-            print(current_pos)
+            if game_over(board_state):
+                print("game over")
+                
             
         # elif key == 'a':
         #     sys.exit(0)
