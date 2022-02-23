@@ -70,13 +70,15 @@ def refresh_image(board_state):
 
     matrix.SetImage(temp)
     
+    return temp
+    
 def pointer_up(current_pos, board_state):
     if current_pos[1] == 0:
         return current_pos
     
     current_pos = (current_pos[0], current_pos[1] - 1)
     
-    image = get_board(refresh_image(board_state))
+    image = refresh_image(board_state)
     # image = get_board()
     draw = ImageDraw.Draw(image)
     
@@ -89,7 +91,7 @@ def pointer_left(current_pos, board_state):
         return current_pos
     current_pos = (current_pos[0] - 1, current_pos[1])
     
-    image = get_board(refresh_image(board_state))
+    image = refresh_image(board_state)
 
     draw = ImageDraw.Draw(image)
     
@@ -102,9 +104,8 @@ def pointer_right(current_pos, board_state):
     if current_pos[0] == 2:
         return current_pos
     current_pos = (current_pos[0] + 1, current_pos[1])
-
     
-    image = get_board(refresh_image(board_state))
+    image = refresh_image(board_state)
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
@@ -119,7 +120,7 @@ def pointer_down(current_pos, board_state):
     # else:
     #     return 
     
-    image = get_board(refresh_image(board_state))
+    image = refresh_image(board_state)
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
