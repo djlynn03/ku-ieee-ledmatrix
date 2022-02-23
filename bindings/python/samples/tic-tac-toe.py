@@ -115,14 +115,12 @@ try:
         
         if k == "w":
             pointer_up()
-        # if key == '\x1b[A':
-        #     pointer_up()
-        # elif key == '\x1b[B':
-        #     pointer_down(0)
-        # elif key == '\x1b[D':
-        #     pointer_left(0)
-        # elif key == '\x1b[C':
-        #     pointer_right(0)
+        elif k == 's':
+            pointer_down()
+        elif k == 'a':
+            pointer_left()
+        elif k == 'd':
+            pointer_right()
         # elif key == 'a':
         #     sys.exit(0)
     # turtle.listen()
