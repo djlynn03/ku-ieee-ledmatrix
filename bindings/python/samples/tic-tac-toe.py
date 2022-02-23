@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import time
 import sys
+
+from numpy import place
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 from readchar import readkey, key
@@ -32,6 +34,9 @@ matrix = RGBMatrix(options = options)
 
 def get_coords(current_pos, length, width):
     return ((current_pos[0] * 10) + 5, (current_pos[1] * 10) + 5, (current_pos[0] * 10) + 5 + length, (current_pos[1] * 10) + 5 + width)
+
+def get_circle(current_pos):
+    return ((current_pos[0] * 10) + 5, (current_pos[1] * 10) + 5, (current_pos[0] * 10) + 5 + 10, (current_pos[1] * 10) + 5 + 10)
 
 def get_board():   # initializes tic tac toe grid
     image = Image.new("RGB", (32,32))
@@ -105,7 +110,16 @@ def pointer_init(current_pos):
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
+
+def place_marker(current_pos, marker):
+    image = get_board()
+    draw = ImageDraw.Draw(image)
     
+    if marker == "O":
+        draw.ellipse(get_circle(current_pos), outline="white")
+        
+    matrix.SetImage(image)
+
 try:
     print("type 'q' to quit")
     matrix.SetImage(get_board())
@@ -126,6 +140,10 @@ try:
             current_pos = pointer_left(current_pos)
         elif k == 'd':
             current_pos = pointer_right(current_pos)
+        
+        elif k == " ":
+            place_marker(current_pos, "O")
+        
         if k:
             print(current_pos)
         # elif key == 'a':
