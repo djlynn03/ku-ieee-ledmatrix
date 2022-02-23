@@ -56,6 +56,7 @@ def pointer_up(current_pos):
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
+    return current_pos
 
 def pointer_left(current_pos):
     if current_pos[0] != 0:
@@ -68,6 +69,8 @@ def pointer_left(current_pos):
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
+    return current_pos
+
     
 def pointer_right(current_pos):
     if current_pos[0] != 2:
@@ -80,6 +83,8 @@ def pointer_right(current_pos):
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
+    return current_pos
+
     
 def pointer_down(current_pos):
     if current_pos[1] != 2:
@@ -92,6 +97,7 @@ def pointer_down(current_pos):
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
+    return current_pos
 # Configuration for the matrix
 
 def pointer_init(current_pos):
@@ -114,13 +120,13 @@ try:
         print(k, k == "q")
         
         if k == "w":
-            pointer_up(current_pos)
+            current_pos = pointer_up(current_pos)
         elif k == 's':
-            pointer_down(current_pos)
+            current_pos = pointer_down(current_pos)
         elif k == 'a':
-            pointer_left(current_pos)
+            current_pos = pointer_left(current_pos)
         elif k == 'd':
-            pointer_right(current_pos)
+            current_pos = pointer_right(current_pos)
         if k:
             print(current_pos)
         # elif key == 'a':
