@@ -5,7 +5,7 @@ import time
 import sys
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
-import readchar
+from readchar import readkey, key
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -100,18 +100,18 @@ try:
     print("Press CTRL-C to stop.")
     matrix.SetImage(get_board())
     while True:
-        key = repr(readchar.readkey())
-        if key == '\x1b[A':
-            pointer_up()
-        elif key == '\x1b[B':
-            pointer_down(0)
-        elif key == '\x1b[D':
-            pointer_left(0)
-        elif key == '\x1b[C':
-            pointer_right(0)
-        else:
-            break
-    sys.exit(0)
+        k = readkey()
+        print(k, k == key.BACKSPACE)
+        # if key == '\x1b[A':
+        #     pointer_up()
+        # elif key == '\x1b[B':
+        #     pointer_down(0)
+        # elif key == '\x1b[D':
+        #     pointer_left(0)
+        # elif key == '\x1b[C':
+        #     pointer_right(0)
+        # elif key == 'a':
+        #     sys.exit(0)
     # turtle.listen()
     # turtle.onkey(pointer_up, "Up")
     # turtle.onkey(pointer_left, "Left")
