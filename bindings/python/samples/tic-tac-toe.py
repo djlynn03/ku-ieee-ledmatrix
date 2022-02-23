@@ -56,7 +56,7 @@ def pointer_up():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords, fill=(255,0,0))
+    draw.rectangle(get_coords(2,2), fill=(255,0,0))
     matrix.SetImage(image)
 
 def pointer_left():
@@ -68,7 +68,7 @@ def pointer_left():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords, fill=(255,0,0))
+    draw.rectangle(get_coords(2,2), fill=(255,0,0))
     matrix.SetImage(image)
     
 def pointer_right():
@@ -80,7 +80,7 @@ def pointer_right():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords, fill=(255,0,0))
+    draw.rectangle(get_coords(2,2), fill=(255,0,0))
     matrix.SetImage(image)
     
 def pointer_down():
@@ -92,7 +92,7 @@ def pointer_down():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords, fill=(255,0,0))
+    draw.rectangle(get_coords(2,2), fill=(255,0,0))
     matrix.SetImage(image)
 # Configuration for the matrix
 
@@ -100,7 +100,7 @@ def pointer_init():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords, fill=(255,0,0))
+    draw.rectangle(get_coords(2,2), fill=(255,0,0))
     matrix.Set_Image(image)
     
 try:
