@@ -70,7 +70,7 @@ def pointer_left():
     
     draw.rectangle(get_coords, fill=(255,0,0))
     matrix.SetImage(image)
-    input()
+    
 def pointer_right():
     if current_pos[0] != 2:
         current_pos = (current_pos[0] + 1, current_pos[1])
@@ -96,14 +96,25 @@ def pointer_down():
     matrix.SetImage(image)
 # Configuration for the matrix
 
+def pointer_init():
+    image = get_board()
+    draw = ImageDraw.Draw(image)
+    
+    draw.rectangle(get_coords, fill=(255,0,0))
+    matrix.Set_Image(image)
+    
 try:
-    print("Press CTRL-C to stop.")
+    print("type 'q' to quit")
     matrix.SetImage(get_board())
+    pointer_init()
     while True:
         k = readkey()
-        if k == "a":
+        if k == "q":
             break
-        print(k, k == "a")
+        print(k, k == "q")
+        
+        if k == "w":
+            pointer_up()
         # if key == '\x1b[A':
         #     pointer_up()
         # elif key == '\x1b[B':
