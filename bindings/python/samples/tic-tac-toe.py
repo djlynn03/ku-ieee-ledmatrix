@@ -48,7 +48,7 @@ def get_board():   # initializes tic tac toe grid
 def pointer_up(current_pos):
     if current_pos[1] == 0:
         return current_pos
-    current_pos = (current_pos[0] - 1, current_pos[1])
+    current_pos = (current_pos[0], current_pos[1] - 1)
     
     image = get_board()
     draw = ImageDraw.Draw(image)
@@ -87,7 +87,6 @@ def pointer_right(current_pos):
 def pointer_down(current_pos):
     if current_pos[1] == 2:
         return current_pos
-    
     current_pos = (current_pos[0], current_pos[1] + 1)
     # else:
     #     return 
@@ -117,7 +116,7 @@ try:
         k = readkey()
         if k == "q":
             break
-        print(k, k == "q")
+        print(k, k == "q", k ==" ")
         
         if k == "w":
             current_pos = pointer_up(current_pos)
