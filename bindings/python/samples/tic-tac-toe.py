@@ -159,6 +159,7 @@ def game_over(board_state):
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
                     draw.line(get_line1((i,j)), fill="red")
+                    matrix.SetImage(image)
                     return True
             except:
                 1
@@ -167,6 +168,7 @@ def game_over(board_state):
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
                     draw.line(get_line2((i,j)), fill="red")
+                    matrix.SetImage(image)
                     return True
             except:
                 1
@@ -175,6 +177,7 @@ def game_over(board_state):
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
                     draw.line(get_line1((i,j)), fill="red")
+                    matrix.SetImage(image)
                     return True
             except:
                 1
@@ -183,6 +186,7 @@ def game_over(board_state):
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
                     draw.line(get_line1((i,j)), fill="red")
+                    matrix.SetImage(image)
                     return True
             except:
                 1
@@ -196,40 +200,53 @@ try:
     current_pos = (0,0)
     pointer_init(current_pos)
     marker = "X"
+    end = False
     while True:
         k = readkey()
         if k == "q":
             break
         print(k, k == "q", k ==" ")
-        
-        if k == "w":
-            current_pos = pointer_up(current_pos, board_state)
-        elif k == 's':
-            current_pos = pointer_down(current_pos, board_state)
-        elif k == 'a':
-            current_pos = pointer_left(current_pos, board_state)
-        elif k == 'd':
-            current_pos = pointer_right(current_pos, board_state)
-        
-        elif k == " ":
-            if place_marker(current_pos, marker, board_state):
-                print("marker placed")
-                if marker == "X":
-                    marker = "O"
-                elif marker == "O":
-                    marker = "X"
-        elif k == "c":
-            image = get_board()
-            base_image = get_board()
-            board_state = [["","",""],["","",""],["","",""]]
-            matrix.SetImage(image)
-            current_pos = (0,0)
-            pointer_init(current_pos)
-            marker = "X"
-            
-        if k:
-            if game_over(board_state):
-                print("game over")
+        if not end:
+            if k == "w":
+                current_pos = pointer_up(current_pos, board_state)
+            elif k == 's':
+                current_pos = pointer_down(current_pos, board_state)
+            elif k == 'a':
+                current_pos = pointer_left(current_pos, board_state)
+            elif k == 'd':
+                current_pos = pointer_right(current_pos, board_state)
+
+            elif k == " ":
+                if place_marker(current_pos, marker, board_state):
+                    print("marker placed")
+                    if marker == "X":
+                        marker = "O"
+                    elif marker == "O":
+                        marker = "X"
+            elif k == "c":
+                image = get_board()
+                base_image = get_board()
+                board_state = [["","",""],["","",""],["","",""]]
+                matrix.SetImage(image)
+                current_pos = (0,0)
+                pointer_init(current_pos)
+                marker = "X"
+
+            if k:
+                if game_over(board_state):
+                    end = True
+                    print("game over")
+                    print("press any key to restart")
+        else:
+            if k:
+                image = get_board()
+                base_image = get_board()
+                board_state = [["","",""],["","",""],["","",""]]
+                matrix.SetImage(image)
+                current_pos = (0,0)
+                pointer_init(current_pos)
+                marker = "X"
+                end = False
                 
             
         # elif key == 'a':
