@@ -98,13 +98,13 @@ def pointer_left(current_pos, board_state):
     return current_pos
 
     
-def pointer_right(current_pos):
+def pointer_right(current_pos, board_state):
     if current_pos[0] == 2:
         return current_pos
     current_pos = (current_pos[0] + 1, current_pos[1])
 
     
-    # image = get_board()
+    image = get_board(refresh_image(board_state))
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
@@ -112,14 +112,14 @@ def pointer_right(current_pos):
     return current_pos
 
     
-def pointer_down(current_pos):
+def pointer_down(current_pos, board_state):
     if current_pos[1] == 2:
         return current_pos
     current_pos = (current_pos[0], current_pos[1] + 1)
     # else:
     #     return 
     
-    # image = get_board()
+    image = get_board(refresh_image(board_state))
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
@@ -163,13 +163,13 @@ try:
         print(k, k == "q", k ==" ")
         
         if k == "w":
-            current_pos = pointer_up(current_pos, image)
+            current_pos = pointer_up(current_pos, board_state)
         elif k == 's':
-            current_pos = pointer_down(current_pos, image)
+            current_pos = pointer_down(current_pos, board_state)
         elif k == 'a':
-            current_pos = pointer_left(current_pos, image)
+            current_pos = pointer_left(current_pos, board_state)
         elif k == 'd':
-            current_pos = pointer_right(current_pos, image)
+            current_pos = pointer_right(current_pos, board_state)
         
         elif k == " ":
             place_marker(current_pos, marker, board_state)
