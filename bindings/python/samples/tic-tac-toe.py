@@ -36,7 +36,7 @@ def get_coords(current_pos, length, width):
     return ((current_pos[0] * 10) + 5, (current_pos[1] * 10) + 5, (current_pos[0] * 10) + 5 + length, (current_pos[1] * 10) + 5 + width)
 
 def get_circle(current_pos):
-    return ((current_pos[0] * 10) + 5, (current_pos[1] * 10) + 5, (current_pos[0] * 10) + 5 + 10, (current_pos[1] * 10) + 5 + 10)
+    return ((current_pos[0] * 10) + 2, (current_pos[1] * 10) + 2, (current_pos[0] * 10) + 6, (current_pos[1] * 10) + 6)
 
 def get_board():   # initializes tic tac toe grid
     image = Image.new("RGB", (32,32))
