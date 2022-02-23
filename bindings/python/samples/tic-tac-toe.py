@@ -45,6 +45,9 @@ def get_line1(current_pos):
 def get_line2(current_pos):
     return ((current_pos[0] * 11) + 6, (current_pos[1] * 11) + 2, (current_pos[0] * 11) + 2, (current_pos[1] * 11) + 6)
 
+def get_end_line(x1,y1,x2,y2):
+    return ((x1 * 11) + 6, (y1 * 11) + 6, (x2 * 11) + 6, (y2 * 11) + 6)
+
 def get_board():   # initializes tic tac toe grid
     image = Image.new("RGB", (32,32))
     draw = ImageDraw.Draw(image)
@@ -158,7 +161,7 @@ def game_over(board_state):
                 if board_state[i][j] == board_state[i+1][j+1] == board_state[i+2][j+2] != "":
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
-                    draw.line(get_line1((i,j)), fill="red")
+                    draw.line(get_end_line(i,j,i+2,j+2), fill="red")
                     matrix.SetImage(image)
                     return True
             except:
@@ -167,7 +170,7 @@ def game_over(board_state):
                 if board_state[i][j] == board_state[i+1][j-1] == board_state[i+2][j-2] != "":
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
-                    draw.line(get_line2((i,j)), fill="red")
+                    draw.line(get_end_line(i,j,i+2,j-2), fill="red")
                     matrix.SetImage(image)
                     return True
             except:
@@ -176,7 +179,7 @@ def game_over(board_state):
                 if board_state[i][j] == board_state[i][j+1] == board_state[i][j+2] != "":
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
-                    draw.line(get_line1((i,j)), fill="red")
+                    draw.line(get_end_line(i,j,i,j+2), fill="red")
                     matrix.SetImage(image)
                     return True
             except:
@@ -185,7 +188,7 @@ def game_over(board_state):
                 if board_state[i][j] == board_state[i+1][j] == board_state[i+2][j] != "":
                     image = refresh_image(board_state)
                     draw = ImageDraw.Draw(image)
-                    draw.line(get_line1((i,j)), fill="red")
+                    draw.line(get_end_line(i,j,i+2,j), fill="red")
                     matrix.SetImage(image)
                     return True
             except:
