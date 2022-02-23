@@ -176,6 +176,7 @@ try:
         
         elif k == " ":
             if place_marker(current_pos, marker, board_state):
+                print("marker placed")
                 if marker == "X":
                     marker = "O"
                 elif marker == "O":
