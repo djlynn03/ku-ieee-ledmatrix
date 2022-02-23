@@ -139,6 +139,8 @@ def pointer_init(current_pos):
 
 
 def place_marker(current_pos, marker, board_state):
+    if board_state[current_pos[0]][current_pos[1]] != "":
+        return False
     board_state[current_pos[0]][current_pos[1]] = marker
     print(board_state)
     refresh_image(board_state)
@@ -173,7 +175,11 @@ try:
             current_pos = pointer_right(current_pos, board_state)
         
         elif k == " ":
-            place_marker(current_pos, marker, board_state)
+            if place_marker(current_pos, marker, board_state):
+                if marker == "X":
+                    marker = "O"
+                elif marker == "O":
+                    marker = "X"
         
         if k:
             print(current_pos)
