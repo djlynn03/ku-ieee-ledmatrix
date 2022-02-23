@@ -38,6 +38,12 @@ def get_coords(current_pos, length, width):
 def get_circle(current_pos):
     return ((current_pos[0] * 10) + 2, (current_pos[1] * 10) + 2, (current_pos[0] * 10) + 6, (current_pos[1] * 10) + 6)
 
+def get_line1(current_pos):
+    return ((current_pos[0] * 10) + 2, (current_pos[1] * 10) + 2, (current_pos[0] * 10) + 6, (current_pos[1] * 10) + 6)
+
+def get_line2(current_pos):
+    return ((current_pos[0] * 10) + 6, (current_pos[1] * 10) + 2, (current_pos[0] * 10) + 2, (current_pos[1] * 10) + 6)
+
 def get_board():   # initializes tic tac toe grid
     image = Image.new("RGB", (32,32))
     draw = ImageDraw.Draw(image)
@@ -114,18 +120,25 @@ def pointer_init(current_pos):
 def place_marker(current_pos, marker):
     image = get_board()
     draw = ImageDraw.Draw(image)
-    
     if marker == "O":
         draw.ellipse(get_circle(current_pos), outline="white")
+        marker = "X"
+        
+    elif marker == "X":
+        draw.line(get_line1(current_pos), fill="white")
+        draw.line(get_line2(current_pos), fill="white")
+        marker = "O"
         
     matrix.SetImage(image)
+    
+    return marker
 
 try:
     print("type 'q' to quit")
     matrix.SetImage(get_board())
     current_pos = (0,0)
     pointer_init(current_pos)
-
+    marker = "X"
     while True:
         k = readkey()
         if k == "q":
@@ -142,10 +155,11 @@ try:
             current_pos = pointer_right(current_pos)
         
         elif k == " ":
-            place_marker(current_pos, "O")
+            marker = place_marker(current_pos, marker)
         
         if k:
             print(current_pos)
+            
         # elif key == 'a':
         #     sys.exit(0)
     # turtle.listen()
