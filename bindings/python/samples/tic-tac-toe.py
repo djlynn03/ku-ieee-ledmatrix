@@ -116,25 +116,26 @@ def pointer_init(current_pos):
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
 
-def place_marker(current_pos, marker, image):
-    draw = ImageDraw.Draw(image)
+def place_marker(current_pos, marker, base_image):
+    draw = ImageDraw.Draw(base_image)
     
     if marker == "O":
-        draw.ellipse(get_circle(current_pos), outline="white")
+        draw.ellipse(get_circle(current_pos), outline="gray")
         marker = "X"
         
     elif marker == "X":
-        draw.line(get_line1(current_pos), fill="white")
-        draw.line(get_line2(current_pos), fill="white")
+        draw.line(get_line1(current_pos), fill="gray")
+        draw.line(get_line2(current_pos), fill="gray")
         marker = "O"
         
-    matrix.SetImage(image)
+    matrix.SetImage(base_image)
     
-    return marker, image
+    return marker, base_image
 
 try:
     print("type 'q' to quit")
     image = get_board()
+    base_image = get_board()
     matrix.SetImage(image)
     current_pos = (0,0)
     pointer_init(current_pos)
@@ -155,7 +156,7 @@ try:
             current_pos = pointer_right(current_pos, image)
         
         elif k == " ":
-            marker,image = place_marker(current_pos, marker, image)
+            marker,image = place_marker(current_pos, marker, base_image)
         
         if k:
             print(current_pos)
