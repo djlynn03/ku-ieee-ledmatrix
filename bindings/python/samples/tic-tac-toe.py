@@ -121,6 +121,8 @@ try:
             pointer_left(current_pos)
         elif k == 'd':
             pointer_right(current_pos)
+        if k:
+            print(current_pos)
         # elif key == 'a':
         #     sys.exit(0)
     # turtle.listen()
