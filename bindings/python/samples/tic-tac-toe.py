@@ -150,9 +150,16 @@ def place_marker(current_pos, marker, board_state):
     # matrix.SetImage(base_image)
     
     # return marker, base_image
-
+def init():
+    image = get_board()
+    base_image = get_board()
+    board_state = [["","",""],["","",""],["","",""]]
+    matrix.SetImage(image)
+    current_pos = (0,0)
+    pointer_init(current_pos)
+    marker = "X"
 try:
-    print("type 'q' to quit")
+    print("type 'q' to quit, 'c' to clear")
     image = get_board()
     base_image = get_board()
     board_state = [["","",""],["","",""],["","",""]]
@@ -182,7 +189,9 @@ try:
                     marker = "O"
                 elif marker == "O":
                     marker = "X"
-        
+        elif k == "c":
+            init()
+            
         if k:
             print(current_pos)
             
