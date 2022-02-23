@@ -33,16 +33,16 @@ matrix = RGBMatrix(options = options)
 # current_pos = (0, 0)
 
 def get_coords(current_pos, length, width):
-    return ((current_pos[0] * 10) + 5, (current_pos[1] * 10) + 5, (current_pos[0] * 10) + 5 + length, (current_pos[1] * 10) + 5 + width)
+    return ((current_pos[0] * 11) + 5, (current_pos[1] * 11) + 5, (current_pos[0] * 11) + 5 + length, (current_pos[1] * 11) + 5 + width)
 
 def get_circle(current_pos):
-    return ((current_pos[0] * 10) + 2, (current_pos[1] * 10) + 2, (current_pos[0] * 10) + 6, (current_pos[1] * 10) + 6)
+    return ((current_pos[0] * 11) + 2, (current_pos[1] * 11) + 2, (current_pos[0] * 11) + 6, (current_pos[1] * 11) + 6)
 
 def get_line1(current_pos):
-    return ((current_pos[0] * 10) + 2, (current_pos[1] * 10) + 2, (current_pos[0] * 10) + 6, (current_pos[1] * 10) + 6)
+    return ((current_pos[0] * 11) + 2, (current_pos[1] * 11) + 2, (current_pos[0] * 11) + 6, (current_pos[1] * 11) + 6)
 
 def get_line2(current_pos):
-    return ((current_pos[0] * 10) + 6, (current_pos[1] * 10) + 2, (current_pos[0] * 10) + 2, (current_pos[1] * 10) + 6)
+    return ((current_pos[0] * 11) + 6, (current_pos[1] * 11) + 2, (current_pos[0] * 11) + 2, (current_pos[1] * 11) + 6)
 
 def get_board():   # initializes tic tac toe grid
     image = Image.new("RGB", (32,32))
@@ -56,11 +56,27 @@ def get_board():   # initializes tic tac toe grid
 
     return image
 
-def pointer_up(current_pos, image):
+def refresh_image(board_state):
+    temp = get_board()
+    draw = ImageDraw.Draw(temp)
+    for i in range(3):
+        for j in range(3):
+            if board_state[i][j] == "O":
+                    draw.ellipse(get_circle((i,j)), outline="gray")
+                    
+            elif board_state[i][j] == "X":
+                draw.line(get_line1((i,j)), fill="gray")
+                draw.line(get_line2((i,j)), fill="gray")
+
+    matrix.SetImage(temp)
+    
+def pointer_up(current_pos, board_state):
     if current_pos[1] == 0:
         return current_pos
+    
     current_pos = (current_pos[0], current_pos[1] - 1)
     
+    image = get_board(refresh_image(board_state))
     # image = get_board()
     draw = ImageDraw.Draw(image)
     
@@ -68,11 +84,13 @@ def pointer_up(current_pos, image):
     matrix.SetImage(image)
     return current_pos
 
-def pointer_left(current_pos, image):
+def pointer_left(current_pos, board_state):
     if current_pos[0] == 0:
         return current_pos
     current_pos = (current_pos[0] - 1, current_pos[1])
     
+    image = get_board(refresh_image(board_state))
+
     draw = ImageDraw.Draw(image)
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
@@ -80,7 +98,7 @@ def pointer_left(current_pos, image):
     return current_pos
 
     
-def pointer_right(current_pos, image):
+def pointer_right(current_pos):
     if current_pos[0] == 2:
         return current_pos
     current_pos = (current_pos[0] + 1, current_pos[1])
@@ -94,7 +112,7 @@ def pointer_right(current_pos, image):
     return current_pos
 
     
-def pointer_down(current_pos, image):
+def pointer_down(current_pos):
     if current_pos[1] == 2:
         return current_pos
     current_pos = (current_pos[0], current_pos[1] + 1)
@@ -106,6 +124,7 @@ def pointer_down(current_pos, image):
     
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
+    
     return current_pos
 # Configuration for the matrix
 
@@ -116,19 +135,7 @@ def pointer_init(current_pos):
     draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
 
-def refresh_image(image, board_state):
-    temp = get_board()
-    draw = ImageDraw.Draw(temp)
-    for i in range(3):
-        for j in range(3):
-            if board_state[i][j] == "O":
-                    draw.ellipse(get_circle((i,j)), outline="gray")
-                    
-            elif board_state[i][j] == "X":
-                draw.line(get_line1((i,j)), fill="gray")
-                draw.line(get_line2((i,j)), fill="gray")
 
-    matrix.SetImage(temp)
 
 def place_marker(current_pos, marker, board_state):
     board_state[current_pos[0]][current_pos[1]] = marker
