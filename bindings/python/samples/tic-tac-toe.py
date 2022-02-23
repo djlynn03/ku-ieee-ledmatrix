@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-from operator import ilshift
-from signal import raise_signal
 import time
 import sys
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
@@ -30,9 +28,9 @@ matrix = RGBMatrix(options = options)
     
 #     matrix.SetImage(image.convert('RGB'))
 
-current_pos = (0, 0)
+# current_pos = (0, 0)
 
-def get_coords(length, width):
+def get_coords(current_pos, length, width):
     return ((current_pos[0] * 10) + 5, (current_pos[1] * 10) + 5, (current_pos[0] * 10) + 5 + length, (current_pos[1] * 10) + 5 + width)
 
 def get_board():   # initializes tic tac toe grid
@@ -47,7 +45,7 @@ def get_board():   # initializes tic tac toe grid
 
     return image
 
-def pointer_up():
+def pointer_up(current_pos):
     if current_pos[1] != 0:
         current_pos = (current_pos[0], current_pos[1] - 1)
     else:
@@ -56,10 +54,10 @@ def pointer_up():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords(2,2), fill=(255,0,0))
+    draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
 
-def pointer_left():
+def pointer_left(current_pos):
     if current_pos[0] != 0:
         current_pos = (current_pos[0] - 1, current_pos[1])
     else:
@@ -68,10 +66,10 @@ def pointer_left():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords(2,2), fill=(255,0,0))
+    draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
     
-def pointer_right():
+def pointer_right(current_pos):
     if current_pos[0] != 2:
         current_pos = (current_pos[0] + 1, current_pos[1])
     else:
@@ -80,10 +78,10 @@ def pointer_right():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords(2,2), fill=(255,0,0))
+    draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
     
-def pointer_down():
+def pointer_down(current_pos):
     if current_pos[1] != 2:
         current_pos = (current_pos[0], current_pos[1] + 1)
     else:
@@ -92,21 +90,23 @@ def pointer_down():
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords(2,2), fill=(255,0,0))
+    draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
 # Configuration for the matrix
 
-def pointer_init():
+def pointer_init(current_pos):
     image = get_board()
     draw = ImageDraw.Draw(image)
     
-    draw.rectangle(get_coords(2,2), fill=(255,0,0))
+    draw.rectangle(get_coords(current_pos, 2,2), fill=(255,0,0))
     matrix.SetImage(image)
     
 try:
     print("type 'q' to quit")
     matrix.SetImage(get_board())
-    pointer_init()
+    current_pos = (0,0)
+    pointer_init(current_pos)
+
     while True:
         k = readkey()
         if k == "q":
@@ -114,13 +114,13 @@ try:
         print(k, k == "q")
         
         if k == "w":
-            pointer_up()
+            pointer_up(current_pos)
         elif k == 's':
-            pointer_down()
+            pointer_down(current_pos)
         elif k == 'a':
-            pointer_left()
+            pointer_left(current_pos)
         elif k == 'd':
-            pointer_right()
+            pointer_right(current_pos)
         # elif key == 'a':
         #     sys.exit(0)
     # turtle.listen()
