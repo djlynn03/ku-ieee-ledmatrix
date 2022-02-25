@@ -20,19 +20,6 @@ options.hardware_mapping = 'adafruit-hat'  # If you have an Adafruit HAT: 'adafr
 
 matrix = RGBMatrix(options = options)
 
-# def cycle_image(index):
-#     image_file = image_names[index]
-#     image = Image.open(image_file)
-    
-#     image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
-    
-#     enhancer = ImageEnhance.Contrast(image)
-#     image = enhancer.enhance(3)
-    
-#     matrix.SetImage(image.convert('RGB'))
-
-# current_pos = (0, 0)
-
 def get_coords(current_pos, length, width):
     return ((current_pos[0] * 11) + 5, (current_pos[1] * 11) + 5, (current_pos[0] * 11) + 5 + length, (current_pos[1] * 11) + 5 + width)
 
@@ -146,14 +133,9 @@ def place_marker(current_pos, marker, board_state):
     if board_state[current_pos[0]][current_pos[1]] != "":
         return False
     board_state[current_pos[0]][current_pos[1]] = marker
-    print(board_state)
     refresh_image(board_state)
     return True
-    # draw = ImageDraw.Draw(base_image)
-      
-    # matrix.SetImage(base_image)
-    
-    # return marker, base_image
+
 def game_over(board_state):
     for i in range(3):
         for j in range(3):
@@ -208,7 +190,6 @@ try:
         k = readkey()
         if k == "q":
             break
-        print(k, k == "q", k ==" ")
         if not end:
             if k == "w":
                 current_pos = pointer_up(current_pos, board_state)
@@ -221,7 +202,6 @@ try:
 
             elif k == " ":
                 if place_marker(current_pos, marker, board_state):
-                    print("marker placed")
                     if marker == "X":
                         marker = "O"
                     elif marker == "O":
@@ -251,22 +231,6 @@ try:
                 marker = "X"
                 end = False
                 
-            
-        # elif key == 'a':
-        #     sys.exit(0)
-    # turtle.listen()
-    # turtle.onkey(pointer_up, "Up")
-    # turtle.onkey(pointer_left, "Left")
-    # turtle.onkey(pointer_right, "Right")
-    # turtle.onkey(pointer_down, "Down")
-
-    # while True:
-    #     movement = input()
-    #     # turtle.
-    #     if movement:
-    #         print(movement)
-    #     # if movement == 'a':
-            
 except KeyboardInterrupt:
     sys.exit(0)
 
