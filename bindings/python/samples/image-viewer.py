@@ -10,7 +10,7 @@ if len(sys.argv) < 2:
 else:
     image_file = sys.argv[1]
 image = Image.open(image_file)
-
+image.convert('RGB')
 # Configuration for the matrix
 options = RGBMatrixOptions()
 options.rows = 32
