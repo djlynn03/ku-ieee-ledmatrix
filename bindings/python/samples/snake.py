@@ -34,7 +34,7 @@ class Snake:
         self.food = Food()
         
     def move(self, direction):
-        self.positions.append([self.positons[len(self.positions)-1][0] + direction[0], self.positons[len(self.positions)-1][1] + direction[1]])
+        self.positions.append([self.positions[len(self.positions)-1][0] + direction[0], self.positions[len(self.positions)-1][1] + direction[1]])
         if not self.check_eat:
             self.positions.remove(self.positions[0])
         else:
@@ -44,9 +44,7 @@ class Snake:
     #     self.length += 1
         
     def check_death(self):
-        if self.pos[0] == 32 or self.pos[0] == -1 or self.pos[1] == 32 or self.pos[1] == -1 or len(self.positions) != len(set(self.positions)):
-            return True
-        return False
+        return self.positions[len(self.positions) - 1][0] < 0 or self.positions[len(self.positions) - 1][0] > 31 or self.positions[len(self.positions) - 1][1] < 0 or self.positions[len(self.positions) - 1][1] > 31
     
     def check_eat(self):
         return self.positions[len(self.positions) - 1] == self.food.pos
