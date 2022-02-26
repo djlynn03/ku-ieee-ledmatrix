@@ -7,8 +7,12 @@ from PIL import Image, ImageDraw
 import random
 import time
 import tkinter
-import matplotlib
-matplotlib.use("TkAgg")
+
+import os
+
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using :0.0')
+    os.environ.__setitem__('DISPLAY', ':0.0')
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
