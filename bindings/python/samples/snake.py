@@ -71,7 +71,7 @@ class App:
         self.snake = Snake()
         self.snake.draw_image()
         self.dir = [0,0]
-        
+        pygame.init()
         # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
         # self.listener.start()
         # self.listener.join()
