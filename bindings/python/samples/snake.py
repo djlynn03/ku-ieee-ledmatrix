@@ -6,13 +6,8 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 import random
 import time
-import tkinter
+import pygame
 
-import os
-
-if os.environ.get('DISPLAY','') == '':
-    print('no display found. Using :0.0')
-    os.environ.__setitem__('DISPLAY', ':0.0')
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -76,8 +71,6 @@ class App:
         self.snake = Snake()
         self.snake.draw_image()
         self.dir = [0,0]
-        self.root = tkinter.Tk()
-        self.root.bind('<KeyPress>', self.change_dir)
         
         # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
         # self.listener.start()
@@ -85,7 +78,19 @@ class App:
         
         while True:
             self.snake.draw_image()
-
+            
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_w]:
+                dir = [0,-1]
+            elif keys[pygame.K_a]:
+                dir = [-1,0]
+            elif keys[pygame.K_s]:
+                dir = [0,1]
+            elif keys[pygame.K_d]:
+                dir = [1,0]
+            elif keys[pygame.K_q]:
+                sys.exit(0)
+                
             self.snake.move(dir)
 
             if self.snake.check_death():
@@ -94,18 +99,18 @@ class App:
                 
             time.sleep(0.1)
             
-    def change_dir(self, key):
-        if key == 'q':
-            print("Exiting...")
-            sys.exit(0)
-        if key == "w":
-            self.dir = [0,-1]
-        elif key == 's':
-            self.dir = [0,1]
-        elif key == 'a':
-            self.dir = [-1,0]
-        elif key == 'd':
-            self.dir = [1,0]
-        print(key)
+    # def change_dir(self, key):
+    #     if key == 'q':
+    #         print("Exiting...")
+    #         sys.exit(0)
+    #     if key == "w":
+    #         self.dir = [0,-1]
+    #     elif key == 's':
+    #         self.dir = [0,1]
+    #     elif key == 'a':
+    #         self.dir = [-1,0]
+    #     elif key == 'd':
+    #         self.dir = [1,0]
+    #     print(key)
         
 app = App()
