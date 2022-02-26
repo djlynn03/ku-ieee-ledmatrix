@@ -4,9 +4,9 @@ import sys
 
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
-from readchar import readkey, key
 import random
 import time
+import pynput
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -64,43 +64,41 @@ class Snake:
         matrix.SetImage(image)
         
 
+class App:
+    def __init__(self):
+        print("type 'q' to quit, 'c' to clear")
+        self.end = False
+        self.snake = Snake()
+        self.snake.draw_image()
+        self.dir = [0,0]
 
-# try:
-print("type 'q' to quit, 'c' to clear")
-end = False
-snake = Snake()
-snake.draw_image()
-dir = [0,0]
-while True:
-    snake.draw_image()
-    k = readkey()
-    print("test")
-    if k == "q":
-        break
-    if not end:
-        if k == "w":
-            dir = [0,-1]
-        elif k == 's':
-            dir = [0,1]
-        elif k == 'a':
-            dir = [-1,0]
-        elif k == 'd':
-            dir = [1,0]
-            
-        snake.move(dir)
+        self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
+        self.listener.start()
+        self.listener.join()
         
-        if snake.check_death():
-            end = True
-            print("Game over!\nPress any key to restart.")
+        while True:
+            self.snake.draw_image()
+
+            self.snake.move(dir)
+
+            if self.snake.check_death():
+                self.end = True
+                print("Game over!\nPress any key to restart.")
+                
+            time.sleep(0.1)
             
-        snake.check_eat()
-    else:
-        if k:
-            snake = Snake()
-            end = False
-            snake.draw_image()
-            dir = [0,0]
-    time.sleep(0.1)
-# except:
-#     sys.exit(0)
-            
+    def change_dir(self, key):
+        if key == 'q':
+            print("Exiting...")
+            sys.exit(0)
+        if key == "w":
+            self.dir = [0,-1]
+        elif key == 's':
+            self.dir = [0,1]
+        elif key == 'a':
+            self.dir = [-1,0]
+        elif key == 'd':
+            self.dir = [1,0]
+        print(key)
+        
+app = App()
