@@ -28,7 +28,7 @@ class Food:
 class Snake:
     def __init__(self):
         self.pos = [0,0]
-        self.segment_positions = [self.pos]
+        # self.segment_positions = [self.pos]
         self.length = 1
         self.food = Food()
         
@@ -41,7 +41,8 @@ class Snake:
         self.length += 1
         
     def check_death(self):
-        if self.pos[0] == 32 or self.pos[0] == -1 or self.pos[1] == 32 or self.pos[1] == -1 or self.pos in self.segment_positions:
+        if self.pos[0] == 32 or self.pos[0] == -1 or self.pos[1] == 32 or self.pos[1] == -1:
+            # or self.pos in self.segment_positions
             return True
         return False
     
@@ -52,11 +53,15 @@ class Snake:
             self.food = Food()
         
     def draw_image(self):
-        image = Image.new("RGB", (32,32))           # create a new image
+        image = Image.new("RGB", (32,32))           # create a new imagemd
         draw = ImageDraw.Draw(image)                # create a drawing object
         draw.point(self.food.pos, fill=(255,0,0))   # red dot for food
         
+        draw.point(self.pos, fill=(0,255,0))        # green dot for snake head
+        # for segment in self.segment_positions:
+        #     draw.point(segment, fill=(0,255,0))     # green line for snake body
         
+        matrix.SetImage(image)
         
 
 
@@ -80,6 +85,7 @@ try:
             if snake.check_death():
                 end = True
                 print("Game over!\nPress any key to restart.")
+            snake.check_eat()
         else:
             if k:
                 snake = Snake()
