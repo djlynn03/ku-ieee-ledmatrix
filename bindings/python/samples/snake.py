@@ -6,8 +6,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 import random
 import time
-import keyboard
-global releaseListening
+import tkinter
 
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
@@ -72,8 +71,8 @@ class App:
         self.snake = Snake()
         self.snake.draw_image()
         self.dir = [0,0]
-
-        keyboard.on_press(self.change_dir)
+        self.root = tkinter.Tk()
+        self.root.bind('<KeyPress>', self.change_dir)
         
         # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
         # self.listener.start()
