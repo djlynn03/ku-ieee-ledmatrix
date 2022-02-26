@@ -66,38 +66,38 @@ class Snake:
         
 
 
-try:
-    print("type 'q' to quit, 'c' to clear")
-    end = False
-    snake = Snake()
+# try:
+print("type 'q' to quit, 'c' to clear")
+end = False
+snake = Snake()
+snake.draw_image()
+dir = [0,0]
+while True:
     snake.draw_image()
-    dir = [0,0]
-    while True:
-        snake.draw_image
-        k = readkey()
-        if k == "q":
-            break
-        if not end:
-            if k == "w":
-                dir = [0,-1]
-            elif k == 's':
-                dir = [0,1]
-            elif k == 'a':
-                dir = [-1,0]
-            elif k == 'd':
-                dir = [1,0]
-                
-            snake.move(dir)
+    k = readkey()
+    if k == "q":
+        break
+    if not end:
+        if k == "w":
+            dir = [0,-1]
+        elif k == 's':
+            dir = [0,1]
+        elif k == 'a':
+            dir = [-1,0]
+        elif k == 'd':
+            dir = [1,0]
             
-            if snake.check_death():
-                end = True
-                print("Game over!\nPress any key to restart.")
-                
-            snake.check_eat()
-        else:
-            if k:
-                snake = Snake()
-                end = False
-except:
-    sys.exit(0)
+        snake.move(dir)
+        
+        if snake.check_death():
+            end = True
+            print("Game over!\nPress any key to restart.")
+            
+        snake.check_eat()
+    else:
+        if k:
+            snake = Snake()
+            end = False
+# except:
+#     sys.exit(0)
             
