@@ -6,7 +6,9 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 import random
 import time
-import pynput
+import keyboard
+global releaseListening
+
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -19,7 +21,6 @@ options.parallel = 1
 options.hardware_mapping = 'adafruit-hat'  # If you have an Adafruit HAT: 'adafruit-hat'
 
 matrix = RGBMatrix(options = options)
-
 
 
 class Food:
@@ -72,9 +73,11 @@ class App:
         self.snake.draw_image()
         self.dir = [0,0]
 
-        self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
-        self.listener.start()
-        self.listener.join()
+        keyboard.on_press(self.change_dir)
+        
+        # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
+        # self.listener.start()
+        # self.listener.join()
         
         while True:
             self.snake.draw_image()
