@@ -69,7 +69,9 @@ try:
     print("type 'q' to quit, 'c' to clear")
     end = False
     snake = Snake()
+    snake.draw_image()
     while True:
+        snake.draw_image
         k = readkey()
         if k == "q":
             break
