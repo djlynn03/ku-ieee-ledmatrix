@@ -7,7 +7,8 @@ from PIL import Image, ImageDraw
 import random
 import time
 import tkinter
-
+import matplotlib
+matplotlib.use("TkAgg")
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
