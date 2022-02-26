@@ -27,40 +27,41 @@ class Food:
         
 class Snake:
     def __init__(self):
-        self.pos = [0,0]
+        # self.pos = [0,0]
+        self.positions = [[0,0]]
         # self.segment_positions = [self.pos]
         self.length = 1
         self.food = Food()
         
     def move(self, direction):
-        self.pos[0] += direction[0]
-        self.pos[1] += direction[1]
-        return self.pos
+        self.positions.append([self.positons[len(self.positions)-1][0] + direction[0], self.positons[len(self.positions)-1][1] + direction[1]])
+        if not self.check_eat:
+            self.positions.remove(self.positions[0])
+        else:
+            self.length += 1
         
-    def grow(self):
-        self.length += 1
+    # def grow(self):
+    #     self.length += 1
         
     def check_death(self):
-        if self.pos[0] == 32 or self.pos[0] == -1 or self.pos[1] == 32 or self.pos[1] == -1:
-            # or self.pos in self.segment_positions
+        if self.pos[0] == 32 or self.pos[0] == -1 or self.pos[1] == 32 or self.pos[1] == -1 or len(self.positions) != len(set(self.positions)):
             return True
         return False
     
     def check_eat(self):
-        if self.pos == self.food.pos:
-            self.length += 1
-            del self.food
-            self.food = Food()
+        return self.positions[len(self.positions) - 1] == self.food.pos
+        # if self.pos == self.food.pos:
+        #     self.length += 1
+        #     del self.food
+        #     self.food = Food()
         
     def draw_image(self):
         image = Image.new("RGB", (32,32))           # create a new imagemd
         draw = ImageDraw.Draw(image)                # create a drawing object
         draw.point(self.food.pos, fill=(255,0,0))   # red dot for food
         
-        draw.point(self.pos, fill=(0,255,0))        # green dot for snake head
-        # for segment in self.segment_positions:
-        #     draw.point(segment, fill=(0,255,0))     # green line for snake body
-        
+        for segment in self.positions:
+            draw.point(segment, fill=(0,255,0))     # green line for snake body
         matrix.SetImage(image)
         
 
@@ -70,6 +71,7 @@ try:
     end = False
     snake = Snake()
     snake.draw_image()
+    dir = [0,0]
     while True:
         snake.draw_image
         k = readkey()
@@ -77,16 +79,20 @@ try:
             break
         if not end:
             if k == "w":
-                current_pos = snake.move([0,-1])
+                dir = [0,-1]
             elif k == 's':
-                current_pos = snake.move([0,1])
+                dir = [0,1]
             elif k == 'a':
-                current_pos = snake.move([-1,0])
+                dir = [-1,0]
             elif k == 'd':
-                current_pos = snake.move([1,0])
+                dir = [1,0]
+                
+            snake.move(dir)
+            
             if snake.check_death():
                 end = True
                 print("Game over!\nPress any key to restart.")
+                
             snake.check_eat()
         else:
             if k:
