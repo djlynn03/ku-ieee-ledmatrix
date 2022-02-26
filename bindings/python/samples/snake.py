@@ -6,6 +6,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 from readchar import readkey, key
 import random
+import time
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -73,6 +74,7 @@ dir = [0,0]
 while True:
     snake.draw_image()
     k = readkey()
+    print("test")
     if k == "q":
         break
     if not end:
@@ -96,6 +98,9 @@ while True:
         if k:
             snake = Snake()
             end = False
+            snake.draw_image()
+            dir = [0,0]
+    time.sleep(0.1)
 # except:
 #     sys.exit(0)
             
