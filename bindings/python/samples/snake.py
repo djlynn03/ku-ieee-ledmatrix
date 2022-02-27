@@ -83,17 +83,17 @@ class App:
             
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
-                dir = [0,-1]
+                self.dir = [0,-1]
             elif keys[pygame.K_a]:
-                dir = [-1,0]
+                self.dir = [-1,0]
             elif keys[pygame.K_s]:
-                dir = [0,1]
+                self.dir = [0,1]
             elif keys[pygame.K_d]:
-                dir = [1,0]
+                self.dir = [1,0]
             elif keys[pygame.K_q]:
                 sys.exit(0)
                 
-            self.snake.move(dir)
+            self.snake.move(self.dir)
 
             if self.snake.check_death():
                 self.end = True
@@ -101,18 +101,5 @@ class App:
                 
             time.sleep(0.1)
             
-    # def change_dir(self, key):
-    #     if key == 'q':
-    #         print("Exiting...")
-    #         sys.exit(0)
-    #     if key == "w":
-    #         self.dir = [0,-1]
-    #     elif key == 's':
-    #         self.dir = [0,1]
-    #     elif key == 'a':
-    #         self.dir = [-1,0]
-    #     elif key == 'd':
-    #         self.dir = [1,0]
-    #     print(key)
-        
+
 app = App()
