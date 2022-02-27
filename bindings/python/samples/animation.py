@@ -15,6 +15,7 @@ image_names = ['grass-block-net.png', 'crafting-table-net.png', 'minecraft-books
 def cycle_image(index):
     image_file = image_names[index]
     image = Image.open(image_file)
+    image = image.mode('RGB')
     
     image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
     
