@@ -82,6 +82,7 @@ class App:
             self.snake.draw_image()
             
             keys = pygame.key.get_pressed()
+            print(keys)
             if keys[pygame.K_w]:
                 self.dir = [0,-1]
             elif keys[pygame.K_a]:
