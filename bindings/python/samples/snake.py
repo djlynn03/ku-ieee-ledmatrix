@@ -6,8 +6,11 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 import random
 import time
+import os
+os.environ['SDL_VIDEODRIVER'] = 'dummy' # set to dummy display because we arent using a display
 import pygame
-
+pygame.init()
+pygame.display.set_mode((1,1))
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -71,7 +74,6 @@ class App:
         self.snake = Snake()
         self.snake.draw_image()
         self.dir = [0,0]
-        pygame.init()
         # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
         # self.listener.start()
         # self.listener.join()
