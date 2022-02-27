@@ -81,8 +81,8 @@ class App:
         while True:
             self.snake.draw_image()
             
-            keys = pygame.key.get_pressed()
             events = pygame.event.get()
+            print(events)
             for e in events:
                 print(e)
                 if e.type == pygame.KEYDOWN:
