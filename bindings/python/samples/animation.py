@@ -43,7 +43,7 @@ try:
         i += 1
         if i == len(image_names):
             i = 0
-        time.sleep(1)
+        # time.sleep(1)
         
 except KeyboardInterrupt:
     sys.exit(0)
