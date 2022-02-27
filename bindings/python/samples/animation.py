@@ -10,7 +10,7 @@ from PIL import Image, ImageEnhance
 # else:
 #     image_file = sys.argv[1]
 
-image_names = ['grass-block-net.png', 'crafting-table-net.png', 'minecraft-bookshelf.png', 'redstone-lamp-on.png', 'glowstone.png']
+image_names = ['grass-block-net.png', 'crafting-table-net.png', 'minecraft-bookshelf.png', 'redstone_lamp_on.png', 'glowstone.png']
 
 def cycle_image(index):
     image_file = image_names[index]
