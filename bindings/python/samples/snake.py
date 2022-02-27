@@ -74,14 +74,18 @@ class App:
         self.snake = Snake()
         self.snake.draw_image()
         self.dir = [0,0]
-        curses.wrapper(self.change_direction)
+        curses.wrapper(self.main)
         # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
         # self.listener.start()
         # self.listener.join()
         
-        while True:
+    def main(self, screen):
+        key = ''
+        while key != 'q':
             self.snake.draw_image()
-            
+            key = screen.getkey()
+            screen.addstr(0,0, 'key: {:<10}'.format(key))
+            self.change_direction(key)
             # events = pygame.event.get()
             # print(events)
             # for e in events:
