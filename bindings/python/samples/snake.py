@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
 import sys
-
+import curses
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 import random
 import time
-import os
-os.environ['SDL_VIDEODRIVER'] = 'dummy' # set to dummy display because we arent using a display
-import pygame
-pygame.init()
-pygame.display.set_mode((1,1))
+# import os
+# os.environ['SDL_VIDEODRIVER'] = 'dummy' # set to dummy display because we arent using a display
+# import pygame
+# pygame.init()
+# pygame.display.set_mode((1,1))
 # if len(sys.argv) < 2:
 #     sys.exit("Require an image argument")
 # else:
@@ -74,6 +74,7 @@ class App:
         self.snake = Snake()
         self.snake.draw_image()
         self.dir = [0,0]
+        curses.wrapper(self.change_direction)
         # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
         # self.listener.start()
         # self.listener.join()
@@ -81,22 +82,22 @@ class App:
         while True:
             self.snake.draw_image()
             
-            events = pygame.event.get()
-            print(events)
-            for e in events:
-                print(e)
-                if e.type == pygame.KEYDOWN:
-                    if e.key == pygame.K_w:
-                        self.dir = [0,-1]
-                    elif e.key == pygame.K_s:
-                        self.dir = [0,1]
-                    elif e.key == pygame.K_a:
-                        self.dir = [-1,0]
-                    elif e.key == pygame.K_d:
-                        self.dir = [1,0]
-                    elif e.key == pygame.K_q:
-                        print("Exiting...")
-                        sys.exit(0)
+            # events = pygame.event.get()
+            # print(events)
+            # for e in events:
+            #     print(e)
+            #     if e.type == pygame.KEYDOWN:
+            #         if e.key == pygame.K_w:
+            #             self.dir = [0,-1]
+            #         elif e.key == pygame.K_s:
+            #             self.dir = [0,1]
+            #         elif e.key == pygame.K_a:
+            #             self.dir = [-1,0]
+            #         elif e.key == pygame.K_d:
+            #             self.dir = [1,0]
+            #         elif e.key == pygame.K_q:
+            #             print("Exiting...")
+            #             sys.exit(0)
                 
             self.snake.move(self.dir)
 
@@ -106,5 +107,18 @@ class App:
                 
             time.sleep(0.1)
             
-
-app = App()
+    def change_direction(self, key):
+        if key == "w":
+            self.dir = [0,-1]
+        elif key == "s":
+            self.dir = [0,1]
+        elif key == "a":
+            self.dir = [-1,0]
+        elif key == "d":
+            self.dir = [1,0]
+        elif key == "q":
+            sys.exit(0)
+        
+            
+if __name__ == '__main__':
+    app = App()
