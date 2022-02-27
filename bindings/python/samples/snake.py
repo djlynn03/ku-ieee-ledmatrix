@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 import sys
-import curses
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw
 import random
 import time
+import select
 # import os
 # os.environ['SDL_VIDEODRIVER'] = 'dummy' # set to dummy display because we arent using a display
 # import pygame
@@ -74,34 +74,18 @@ class App:
         self.snake = Snake()
         self.snake.draw_image()
         self.dir = [0,0]
-        curses.wrapper(self.main)
+        self.main()
         # self.listener = pynput.keyboard.Listener(on_press=self.change_dir)
         # self.listener.start()
         # self.listener.join()
         
-    def main(self, screen):
-        key = ''
-        while key != 'q':
+    def main(self):
+        while True:
             self.snake.draw_image()
-            key = screen.getkey()
-            # screen.addstr(0,0, 'key: {:<10}'.format(key))
-            self.change_direction(key)
-            # events = pygame.event.get()
-            # print(events)
-            # for e in events:
-            #     print(e)
-            #     if e.type == pygame.KEYDOWN:
-            #         if e.key == pygame.K_w:
-            #             self.dir = [0,-1]
-            #         elif e.key == pygame.K_s:
-            #             self.dir = [0,1]
-            #         elif e.key == pygame.K_a:
-            #             self.dir = [-1,0]
-            #         elif e.key == pygame.K_d:
-            #             self.dir = [1,0]
-            #         elif e.key == pygame.K_q:
-            #             print("Exiting...")
-            #             sys.exit(0)
+            input = select.select([sys.stdin], [], [], 0.1)[0]
+            if input:
+                value = sys.stdin.readline().rstrip()
+                self.change_direction(value)
                 
             self.snake.move(self.dir)
 
