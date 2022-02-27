@@ -82,17 +82,21 @@ class App:
             self.snake.draw_image()
             
             keys = pygame.key.get_pressed()
-            print(keys)
-            if keys[pygame.K_w]:
-                self.dir = [0,-1]
-            elif keys[pygame.K_a]:
-                self.dir = [-1,0]
-            elif keys[pygame.K_s]:
-                self.dir = [0,1]
-            elif keys[pygame.K_d]:
-                self.dir = [1,0]
-            elif keys[pygame.K_q]:
-                sys.exit(0)
+            events = pygame.event.get()
+            for e in events:
+                print(e)
+                if e.type == pygame.KEYDOWN:
+                    if e.key == pygame.K_w:
+                        self.dir = [0,-1]
+                    elif e.key == pygame.K_s:
+                        self.dir = [0,1]
+                    elif e.key == pygame.K_a:
+                        self.dir = [-1,0]
+                    elif e.key == pygame.K_d:
+                        self.dir = [1,0]
+                    elif e.key == pygame.K_q:
+                        print("Exiting...")
+                        sys.exit(0)
                 
             self.snake.move(self.dir)
 
