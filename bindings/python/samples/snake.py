@@ -81,9 +81,10 @@ class App:
         
     def main(self):
         while True:
-            print("e")
+            # print("e")
             self.snake.draw_image()
             input = select.select([sys.stdin], [], [], 0.1)[0]
+            print(input)
             if input:
                 value = sys.stdin.readline().rstrip()
                 self.change_direction(value)
