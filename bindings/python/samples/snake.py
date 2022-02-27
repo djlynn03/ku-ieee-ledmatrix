@@ -84,7 +84,7 @@ class App:
         while key != 'q':
             self.snake.draw_image()
             key = screen.getkey()
-            screen.addstr(0,0, 'key: {:<10}'.format(key))
+            # screen.addstr(0,0, 'key: {:<10}'.format(key))
             self.change_direction(key)
             # events = pygame.event.get()
             # print(events)

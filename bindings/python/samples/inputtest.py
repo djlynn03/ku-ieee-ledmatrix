@@ -1,12 +1,17 @@
-import curses
+import sys
+import select
 
-
-def main(screen):
-    key = ''
-    while key != 'q':
-        key = screen.getkey()
-        screen.addstr(0, 0, 'key: {:<10}'.format(key))
-
-
-if __name__ == '__main__':
-    curses.wrapper(main)
+def process():
+    print("e")
+    
+while True:
+    input = select.select([sys.stdin], [], [], 0.1)[0]
+    if input:
+        value = sys.stdin.readline().rstrip()
+        
+        if value == "q":
+            sys.exit(0)
+        else:
+            print(value)
+    else:
+        process()
