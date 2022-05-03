@@ -634,7 +634,7 @@ following picture (click to enlarge):
 
 Then, start your programs with `--led-gpio-mapping=adafruit-hat-pwm`.
 
-Now you should have less visible flicker. This essentially
+Now you should have a less visible flicker. This essentially
 switches on the hardware pulses feature for the Adafruit HAT/Bonnet.
 
 ### 64x64 with E-line on Adafruit HAT/Bonnet
